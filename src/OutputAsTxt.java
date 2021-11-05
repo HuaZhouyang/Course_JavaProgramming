@@ -1,10 +1,9 @@
 import java.io.*;
 
-@TxtData(lessonName = "Lesson04_ProgrammingExercises")
+@TxtData(lessonName = "Lesson05_ProgramListing")
 public class OutputAsTxt {
     public static void main(String[] args) throws IOException {
-        OutputAsTxt outputAsTxt = new OutputAsTxt();
-        outputAsTxt.outputAsTxt();
+        new OutputAsTxt().outputAsTxt();
     }
 
     String lessonName;
@@ -46,7 +45,7 @@ public class OutputAsTxt {
         for (File code : codes) {
             writer.write("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
             writer.newLine();
-            writer.write(getTitle(code) + ":"); // 开始写入各个代码
+            writer.write(code.getName() + ":"); // 开始写入各个代码
             writer.newLine();
             writer.newLine();
 
@@ -60,12 +59,6 @@ public class OutputAsTxt {
 
             reader.close();
         }
-    }
-
-    private String getTitle(File src) {
-        String name = src.getName();
-        String[] nameArr = name.split("_");
-        return packageName.substring(5) + "-" + Integer.parseInt(nameArr[1]) + " " + nameArr[2];
     }
 }
 
