@@ -1,6 +1,6 @@
 import java.io.*;
 
-@TxtData(lessonName = "Lesson05_ProgramListing")
+@TxtData(lessonName = "Lesson06_ProgrammingExercises")
 public class OutputAsTxt {
     public static void main(String[] args) throws IOException {
         new OutputAsTxt().outputAsTxt();
