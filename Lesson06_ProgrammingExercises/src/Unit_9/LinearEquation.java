@@ -6,9 +6,9 @@ import java.util.Scanner;
  * 9.11
  */
 public class LinearEquation {
-    private final long a, b, c, d, e, f, denominator;
+    private final double a, b, c, d, e, f, denominator;
 
-    public LinearEquation(long a, long b, long c, long d, long e, long f) {
+    public LinearEquation(double a, double b, double c, double d, double e, double f) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -18,27 +18,27 @@ public class LinearEquation {
         denominator = a * d - b * c;
     }
 
-    public long getA() {
+    public double getA() {
         return a;
     }
 
-    public long getB() {
+    public double getB() {
         return b;
     }
 
-    public long getC() {
+    public double getC() {
         return c;
     }
 
-    public long getD() {
+    public double getD() {
         return d;
     }
 
-    public long getE() {
+    public double getE() {
         return e;
     }
 
-    public long getF() {
+    public double getF() {
         return f;
     }
 
@@ -47,25 +47,25 @@ public class LinearEquation {
     }
 
     public double getX() {
-        return (e * d - b * f) * 1.0 / denominator;
+        return (e * d - b * f) / denominator;
     }
 
     public double getY() {
-        return (a * f - e * c) * 1.0 / denominator;
+        return (a * f - e * c) / denominator;
     }
 }
 
 class LinearEquationTest {
     public static void main(String[] args) {
-        long a, b, c, d, e, f;
+        double a, b, c, d, e, f;
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter nums:");
-        a = sc.nextLong();
-        b = sc.nextLong();
-        c = sc.nextLong();
-        d = sc.nextLong();
-        e = sc.nextLong();
-        f = sc.nextLong();
+        a = sc.nextDouble();
+        b = sc.nextDouble();
+        c = sc.nextDouble();
+        d = sc.nextDouble();
+        e = sc.nextDouble();
+        f = sc.nextDouble();
         LinearEquation le = new LinearEquation(a, b, c, d, e, f);
         boolean solvable = le.isSolvable();
         if (solvable) {
