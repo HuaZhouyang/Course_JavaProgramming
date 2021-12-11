@@ -2,18 +2,21 @@ package pages.homePage;
 
 import pages.Page;
 import users.User;
+import users.UserManager;
 
 /**
- * “待登录首页”的页面
+ * “未登录首页”的页面
  */
 public class ToLogInHomePage extends Page implements Login {
     public ToLogInHomePage() {
         super(null);
         pages.put(PageType.toLogInHomePage, this);
     }
-    //private LoggedInHomePage loggedInHomePage = null;
 
-    /* 进入未登录界面,并实现其功能,退出时返回成功登录的界面 */
+    /**
+     * 进入未登录界面,并实现其功能,退出时返回成功登录的界面首页
+     * @return 已登录首页
+     */
     @Override
     public Page execute() {
         showUI(); // 显示未登录的首页界面
@@ -25,18 +28,16 @@ public class ToLogInHomePage extends Page implements Login {
                     System.exit(0);
                 case "1":  // 1.用户登录
                     // 用户登录
-                    if ((user = signIn()) == null) { // 若用户输入0,返回未登录界面（自己）
+                    if ((user = signIn()) == null) // 若用户输入0,返回未登录界面（自己）
                         return this;
-                    }
                     break;
                 case "2":  // 2.新用户注册并登录
                     // 注册 && 登录
-                    if (registerNewAccount() == null || (user = signIn()) == null) { // 若用户输入0,返回未登录界面（自己）
+                    if (registerNewAccount() == null || (user = signIn()) == null) // 若用户输入0,返回未登录界面（自己）
                         return this;
-                    }
                     break;
                 case "3":  // 3.游客登录
-                    user = User.getDefaultUser(); // 游客登录成功，修改user值
+                    user = UserManager.getDefaultUser(); // 游客登录成功，修改user值
                     break;
                 default: // 非法输入
                     System.out.println("*****非法的输入！请重新输入！*****");
@@ -53,7 +54,9 @@ public class ToLogInHomePage extends Page implements Login {
         }
     }
 
-    /* 显示未登录的的首页UI */
+    /**
+     * 显示未登录首页的UI
+     */
     @Override
     protected void showUI() {
         System.out.println("******************************");
@@ -64,13 +67,16 @@ public class ToLogInHomePage extends Page implements Login {
         System.out.println("******************************");
     }
 
-    /* 登录功能，登录成功返回true，否则返回false */
+    /**
+     * 登录功能，登录成功返回true，否则返回false
+     * @return 代表是否登录成功的布尔值
+     */
     public User signIn() {
         System.out.println("\n----------登录中----------");
         while (true) { // 持续登录直到成功
             String username = getInput("用户名");
             String password = getInput("密码");
-            User user = User.getUser(username); // 用户名不存在，返回null；否则返回对应User对象
+            User user = UserManager.getUser(username); // 用户名不存在，返回null；否则返回对应User对象
             if (user != null && user.getPassword().equals(password)) { // 检验是否正确
                 System.out.println("----------登录成功，欢迎使用！----------");
                 return user; // 登录成功，返回user值
@@ -78,23 +84,26 @@ public class ToLogInHomePage extends Page implements Login {
                 System.out.println("*****用户名或密码错误！*****");
                 System.out.println("输入数字0返回首页...");
                 System.out.println("输入其他键继续登录...");
-                if (Integer.parseInt(getInput()) == 0) {
+                if (getInput().equals("0")) {
                     return null; // 退出登录程序
                 }
             }
         }
     }
 
-    /* 注册功能，注册新用户 */
+    /**
+     * 注册功能，注册新用户
+     * @return 新用户的User对象
+     */
     @Override
     public User registerNewAccount() {
         System.out.println("\n----------注册中----------");
         String username = getInput("用户名");
-        while (User.containsUser(username)) {
+        while (UserManager.containsUser(username)) {
             System.out.println("*****用户名重复！*****");
             System.out.println("输入数字0返回首页...");
             System.out.println("输入其他键继续注册...");
-            if (Integer.parseInt(getInput()) == 0) {
+            if (getInput().equals("0")) {
                 return null; // 退出登录程序
             }
             username = getInput("用户名");
@@ -120,6 +129,6 @@ public class ToLogInHomePage extends Page implements Login {
             }
         }
         System.out.println("----------注册成功，欢迎使用！----------");
-        return User.addUser(name, username, password, gender);
+        return UserManager.addUser(name, username, password, gender);
     }
 }

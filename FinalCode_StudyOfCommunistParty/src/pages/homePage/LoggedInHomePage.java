@@ -7,7 +7,7 @@ import pages.funcPage.msgPage.MessagePage;
 import users.User;
 
 /**
- * “已登录的首页”页面
+ * “已登录首页”页面
  */
 public class LoggedInHomePage extends Page {
 

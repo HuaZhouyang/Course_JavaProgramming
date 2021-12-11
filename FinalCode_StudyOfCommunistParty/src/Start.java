@@ -3,9 +3,9 @@ import pages.homePage.ToLogInHomePage;
 
 public class Start {
     public static void main(String[] args) {
-        Page curHome = new ToLogInHomePage();
-        while (curHome != null) {
-            curHome = curHome.execute();
+        Page curPage = new ToLogInHomePage();
+        while (curPage != null) {
+            curPage = curPage.execute();
         }
     }
 }

@@ -2,6 +2,7 @@ package pages.funcPage.msgPage;
 
 import pages.Page;
 import users.User;
+import users.UserManager;
 
 /**
  * “我的信息”页面
@@ -38,7 +39,7 @@ public class MessagePage extends Page {
                     System.out.println("注销账户后，您的账户及其数据将被永久删除。");
                     System.out.println("您确定要注销吗？\t1.是\t2.否");
                     if (getInput().equals("1")) {
-                        User.deleteUser(user.getUsername());
+                        UserManager.deleteUser(user.getUsername());
                         sleepSomeTime("注销", 1000, "首页");
                         return pages.get(PageType.toLogInHomePage);
                     }

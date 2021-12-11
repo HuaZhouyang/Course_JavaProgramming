@@ -11,8 +11,8 @@ import java.util.Scanner;
  */
 public abstract class Page {
     protected enum PageType {
-        toLogInHomePage, // “待登录首页”的页面
-        loggedInHomePage, // “已登录的首页”页面
+        toLogInHomePage, // “未登录首页”的页面
+        loggedInHomePage, // “已登录首页”页面
         studyPage, // “学习”界面
         questionPage, // “答题”界面
         messagePage, // “我的信息”页面
