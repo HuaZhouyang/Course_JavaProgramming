@@ -1,7 +1,5 @@
 package Unit_5;
 
-import java.util.Calendar;
-
 public class _27_DisplayLeapYears {
     public static void main(String[] args) {
         int cnt = 0, counter = 0;

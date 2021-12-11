@@ -1,7 +1,5 @@
 package Unit_3;
 
-import java.util.Random;
-
 public class _24_DrawCard {
     public static void main(String[] args) {
         String[] scale = {
