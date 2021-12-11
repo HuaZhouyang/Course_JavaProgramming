@@ -1,10 +1,10 @@
 package pages.homePage;
 
-import beans.User;
 import pages.Page;
 import pages.funcPage.QuestionPage;
 import pages.funcPage.StudyPage;
 import pages.funcPage.msgPage.MessagePage;
+import users.User;
 
 /**
  * “已登录的首页”页面

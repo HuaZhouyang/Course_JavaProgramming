@@ -1,7 +1,7 @@
 package pages.funcPage;
 
-import beans.User;
 import pages.Page;
+import users.User;
 
 /**
  * “学习”界面

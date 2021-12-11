@@ -1,7 +1,7 @@
 package pages.funcPage;
 
-import beans.User;
 import pages.Page;
+import users.User;
 
 /**
  * “答题”界面

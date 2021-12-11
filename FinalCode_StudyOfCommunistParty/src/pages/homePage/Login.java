@@ -1,6 +1,6 @@
 package pages.homePage;
 
-import beans.User;
+import users.User;
 
 public interface Login {
     User signIn();

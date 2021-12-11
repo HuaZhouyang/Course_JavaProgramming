@@ -1,7 +1,7 @@
 package pages.homePage;
 
-import beans.User;
 import pages.Page;
+import users.User;
 
 /**
  * “待登录首页”的页面
@@ -70,7 +70,7 @@ public class ToLogInHomePage extends Page implements Login {
         while (true) { // 持续登录直到成功
             String username = getInput("用户名");
             String password = getInput("密码");
-            User user = User.getUser(username);
+            User user = User.getUser(username); // 用户名不存在，返回null；否则返回对应User对象
             if (user != null && user.getPassword().equals(password)) { // 检验是否正确
                 System.out.println("----------登录成功，欢迎使用！----------");
                 return user; // 登录成功，返回user值

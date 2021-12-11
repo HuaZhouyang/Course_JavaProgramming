@@ -1,7 +1,7 @@
 package pages.funcPage.msgPage;
 
-import beans.User;
 import pages.Page;
+import users.User;
 
 /**
  * “答题历史”界面
