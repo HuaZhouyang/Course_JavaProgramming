@@ -1,4 +1,4 @@
-package users;
+package beans.user;
 
 import java.util.Date;
 

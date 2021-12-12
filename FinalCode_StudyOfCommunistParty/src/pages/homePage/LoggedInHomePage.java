@@ -1,19 +1,14 @@
 package pages.homePage;
 
 import pages.Page;
-import pages.funcPage.QuestionPage;
 import pages.funcPage.StudyPage;
 import pages.funcPage.msgPage.MessagePage;
-import users.User;
+import pages.funcPage.questionPage.QuestionPage;
 
 /**
  * “已登录首页”页面
  */
 public class LoggedInHomePage extends Page {
-
-    public LoggedInHomePage(User user) {
-        super(user);
-    }
 
     /* 进入已登录界面,并实现其功能,退出时返回用户选择的界面 */
     @Override
@@ -29,9 +24,9 @@ public class LoggedInHomePage extends Page {
                     // 返回用户选择的功能界面
                     resPage = PageType.studyPage;
                     if (pages.containsKey(resPage)) {
-                        return pages.get(resPage).setUser(user);
+                        return pages.get(resPage);
                     } else {
-                        Page newPage = new StudyPage(user);
+                        Page newPage = new StudyPage();
                         pages.put(resPage, newPage);
                         return newPage;
                     }
@@ -39,9 +34,9 @@ public class LoggedInHomePage extends Page {
                     // 返回用户选择的功能界面
                     resPage = PageType.questionPage;
                     if (pages.containsKey(resPage)) {
-                        return pages.get(resPage).setUser(user);
+                        return pages.get(resPage);
                     } else {
-                        Page newPage = new QuestionPage(user);
+                        Page newPage = new QuestionPage();
                         pages.put(resPage, newPage);
                         return newPage;
                     }
@@ -49,9 +44,9 @@ public class LoggedInHomePage extends Page {
                     // 返回用户选择的功能界面
                     resPage = PageType.messagePage;
                     if (pages.containsKey(resPage)) {
-                        return pages.get(resPage).setUser(user);
+                        return pages.get(resPage);
                     } else {
-                        Page newPage = new MessagePage(user);
+                        Page newPage = new MessagePage();
                         pages.put(resPage, newPage);
                         return newPage;
                     }
@@ -66,9 +61,9 @@ public class LoggedInHomePage extends Page {
     protected void showUI() {
         System.out.println("******************************");
         System.out.println("尊敬的" + user.getName() + "，您好！");
-        System.out.println("选项：");
-        System.out.println("\t0.退出程序\t1.学习");
-        System.out.println("\t2.答题\t\t3.我的信息");
+        System.out.println("选项：（0.退出程序）");
+        System.out.println("\t1.学习\t2.答题");
+        System.out.println("\t3.我的信息");
         System.out.println("******************************");
     }
 

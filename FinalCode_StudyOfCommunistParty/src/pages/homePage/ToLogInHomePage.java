@@ -1,15 +1,14 @@
 package pages.homePage;
 
+import beans.user.User;
+import beans.user.UserManager;
 import pages.Page;
-import users.User;
-import users.UserManager;
 
 /**
  * “未登录首页”的页面
  */
 public class ToLogInHomePage extends Page implements Login {
     public ToLogInHomePage() {
-        super(null);
         pages.put(PageType.toLogInHomePage, this);
     }
 
@@ -19,36 +18,38 @@ public class ToLogInHomePage extends Page implements Login {
      */
     @Override
     public Page execute() {
-        showUI(); // 显示未登录的首页界面
-        User user = null;
-        // 用户选择选项
-        while (user == null) { // 不断循环直到输入合法
-            switch (getInput()) {
-                case "0":  // 0.退出程序
-                    System.exit(0);
-                case "1":  // 1.用户登录
-                    // 用户登录
-                    if ((user = signIn()) == null) // 若用户输入0,返回未登录界面（自己）
-                        return this;
-                    break;
-                case "2":  // 2.新用户注册并登录
-                    // 注册 && 登录
-                    if (registerNewAccount() == null || (user = signIn()) == null) // 若用户输入0,返回未登录界面（自己）
-                        return this;
-                    break;
-                case "3":  // 3.游客登录
-                    user = UserManager.getDefaultUser(); // 游客登录成功，修改user值
-                    break;
-                default: // 非法输入
-                    System.out.println("*****非法的输入！请重新输入！*****");
-                    break;
+        user = UserManager.getDefaultUser(); // 如果没有默认用户，则不自动登录，user==null
+        if (user == null) {
+            showUI(); // 显示未登录的首页界面
+            // 用户选择选项
+            while (user == null) { // 不断循环直到输入合法
+                switch (getInput()) {
+                    case "0":  // 0.退出程序
+                        System.exit(0);
+                    case "1":  // 1.用户登录
+                        // 用户登录
+                        if ((user = signIn()) == null) // 若用户输入0,返回未登录界面（自己）
+                            return this;
+                        break;
+                    case "2":  // 2.新用户注册并登录
+                        // 注册 && 登录
+                        if (registerNewAccount() == null || (user = signIn()) == null) // 若用户输入0,返回未登录界面（自己）
+                            return this;
+                        break;
+                    case "3":  // 3.游客登录
+                        user = UserManager.getTouristUser(); // 游客登录成功，修改user值
+                        break;
+                    default: // 非法输入
+                        System.out.println("*****非法的输入！请重新输入！*****");
+                        break;
+                }
             }
         }
         // 返回登录后界面
         if (pages.containsKey(PageType.loggedInHomePage)) {
-            return pages.get(PageType.loggedInHomePage).setUser(user);
+            return pages.get(PageType.loggedInHomePage);
         } else {
-            Page newPage = new LoggedInHomePage(user);
+            Page newPage = new LoggedInHomePage();
             pages.put(PageType.loggedInHomePage, newPage);
             return newPage;
         }
@@ -61,31 +62,44 @@ public class ToLogInHomePage extends Page implements Login {
     protected void showUI() {
         System.out.println("******************************");
         System.out.println("尊敬的用户，您尚未登录！");
-        System.out.println("选项：");
-        System.out.println("\t0.退出程序\t\t1.用户登录");
-        System.out.println("\t2.注册账户并登录\t3.游客登录");
+        System.out.println("选项：（0.退出程序）");
+        System.out.println("\t1.用户登录\t2.注册账户并登录");
+        System.out.println("\t3.游客登录");
         System.out.println("******************************");
     }
 
+    private void showErrorMessage(String errorMessage) {
+
+        System.out.println("*****"+errorMessage+"！*****");
+        System.out.println("选项：");
+        System.out.println("\t0.退出程序\t1.返回首页...");
+        System.out.println("\t输入其他键继续注册...");
+    }
+
     /**
-     * 登录功能，登录成功返回true，否则返回false
-     * @return 代表是否登录成功的布尔值
+     * 登录功能，登录成功返回user值，否则返回null
+     *
+     * @return user值
      */
     public User signIn() {
         System.out.println("\n----------登录中----------");
         while (true) { // 持续登录直到成功
             String username = getInput("用户名");
             String password = getInput("密码");
-            User user = UserManager.getUser(username); // 用户名不存在，返回null；否则返回对应User对象
-            if (user != null && user.getPassword().equals(password)) { // 检验是否正确
+            // 获取失败，返回null；否则返回对应User对象
+            if (UserManager.getUser(username, password) != null) { // 检验是否正确
                 System.out.println("----------登录成功，欢迎使用！----------");
+                if (getInput("下次是否自动登录", "1.是", "2.否").equals("1")) {
+                    UserManager.setDefaultUser(username);
+                }
                 return user; // 登录成功，返回user值
             } else {
-                System.out.println("*****用户名或密码错误！*****");
-                System.out.println("输入数字0返回首页...");
-                System.out.println("输入其他键继续登录...");
-                if (getInput().equals("0")) {
-                    return null; // 退出登录程序
+                showErrorMessage("用户名或密码错误");
+                switch (getInput()) {
+                    case "0":
+                        System.exit(0); // 退出程序
+                    case "1":
+                        return null; // 退出登录界面，返回首页
                 }
             }
         }
@@ -93,18 +107,20 @@ public class ToLogInHomePage extends Page implements Login {
 
     /**
      * 注册功能，注册新用户
+     *
      * @return 新用户的User对象
      */
     @Override
     public User registerNewAccount() {
         System.out.println("\n----------注册中----------");
         String username = getInput("用户名");
-        while (UserManager.containsUser(username)) {
-            System.out.println("*****用户名重复！*****");
-            System.out.println("输入数字0返回首页...");
-            System.out.println("输入其他键继续注册...");
-            if (getInput().equals("0")) {
-                return null; // 退出登录程序
+        while (UserManager.containsUser(username)) { // 循环输入直到用户名不重复
+            showErrorMessage("用户名重复");
+            switch (getInput()) {
+                case "0":
+                    System.exit(0); // 退出程序
+                case "1":
+                    return null; // 退出注册界面，返回首页
             }
             username = getInput("用户名");
         }

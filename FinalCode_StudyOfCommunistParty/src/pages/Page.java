@@ -1,6 +1,6 @@
 package pages;
 
-import users.User;
+import beans.user.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,26 +15,28 @@ public abstract class Page {
         loggedInHomePage, // “已登录首页”页面
         studyPage, // “学习”界面
         questionPage, // “答题”界面
+        singleChoicePage, // “单选题”界面
+        multipleChoicePage, // “多选题”界面
+        trueOrFalsePage, // “判断题”界面
+        fillInBlanksPage, // “填空题”界面
+        randomQuestionPage, // “随机答题”界面
         messagePage, // “我的信息”页面
         historyPage // “答题历史”界面
     }
-
     protected static final Map<PageType, Page> pages = new HashMap<>();
-
     private static final Scanner sc = new Scanner(System.in);
-    protected User user;
 
-    public Page(User user) {
-        this.user = user;
-    }
+    protected static User user; // 当前页面的用户
 
-    public Page setUser(User user) {
-        this.user = user;
-        return this;
-    }
+    /**
+     * 执行当前首页功能，返回下一个执行界面
+     * @return 下一个执行界面
+     */
+    public abstract Page execute();
 
-    public abstract Page execute(); // 执行当前首页功能，返回下一个执行界面
-
+    /**
+     * 将该界面的UI打印在控制台
+     */
     protected abstract void showUI();
 
     protected String getInput() {
@@ -42,7 +44,7 @@ public abstract class Page {
     }
 
     protected String getInput(String item, String... message) {
-        System.out.print("◉请输入您的" + item + "：");
+        System.out.print("◉请输入" + item + "：");
         if (message.length > 0)
             System.out.println("（" + String.join("\t", message) + "）");
         return sc.next();
@@ -54,7 +56,7 @@ public abstract class Page {
      * @param millis 等待的毫秒数
      * @param dest 目的地
      */
-    protected void sleepSomeTime(String act, long millis, String dest) {
+    protected void waitSomeTime(String act, long millis, String dest) {
         System.out.println("----------" + act + "成功！" + (millis / 1000) + "s后跳转"+dest+"----------");
         try {
             Thread.sleep(millis);
@@ -62,4 +64,14 @@ public abstract class Page {
             e.printStackTrace();
         }
     }
+
+    /*protected Page nextPage(Class<Page> pageClass) {
+        if (pageType == PageType.toLogInHomePage || pages.containsKey(pageType)) {
+            return pages.get(pageType);
+        } else {
+            Page newPage = new HistoryPage();
+            pages.put(pageType, newPage);
+            return newPage;
+        }
+    }*/
 }

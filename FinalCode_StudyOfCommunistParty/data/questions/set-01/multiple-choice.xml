@@ -1,0 +1,65 @@
+<?xml version='1.0' ?>
+<questions>
+    <question id='1'>
+        <description>
+            洋务运动，又称自强运动。是19世纪60年代到90年代晚清洋务派所进行的一场引进西方军事装备、机器生产和科学技术以挽救清朝统治的自救运动。下列关于洋务运动表述不准确的两项是（）。
+        </description>
+        <answer>B</answer>
+        <answer>C</answer>
+        <A>标志着历时30余年的洋务运动破产的重大事件是甲午中日战争</A>
+        <B>洋务运动是一次失败的资产阶级民主运动</B>
+        <C>洋务运动达到了“师夷之长技以制夷”的目的</C>
+        <D>洋务运动的口号是“自强”“求富”</D>
+    </question>
+
+    <question id='2'>
+        <description>
+            关于戊戌变法，下列表述准确的是（）。
+        </description>
+        <answer>A</answer>
+        <answer>B</answer>
+        <A>戊戌变法时我国开始第一次向国外派遣留学生</A>
+        <B>戊戌变法之所以推动了中国近代化是因为兴办军事近代工业</B>
+        <C>戊戌变法时废除了八股文</C>
+        <D>戊戌变法是进步的爱国的运动</D>
+    </question>
+
+    <question id='3'>
+        <description>
+            20世纪初，中国经济、政治、文化的剧烈变动，为旧民主主义向新民主主义转变创造的条件是（）。
+        </description>
+        <answer>A</answer>
+        <answer>C</answer>
+        <answer>D</answer>
+        <A>中国民族资本主义的发展</A>
+        <B>中国社会各阶级力量分化重组</B>
+        <C>中国工人阶级的成长和工人运动的发展</C>
+        <D>新文化运动和俄国十月革命的影响</D>
+    </question>
+
+    <question id='4'>
+        <description>
+            近代中国的阶级结构是“两头小中间大“，中间阶级是指（）。
+        </description>
+        <answer>A</answer>
+        <answer>B</answer>
+        <answer>C</answer>
+        <A>农民阶级</A>
+        <B>城市小资产阶级</B>
+        <C>民族资产阶级</C>
+        <D>大资产阶级</D>
+    </question>
+
+    <question id='5'>
+        <description>
+            辛亥革命是中国近代史上一次比较完全意义上的资产阶级民主革命。这是因为辛亥革命（）。
+        </description>
+        <answer>B</answer>
+        <answer>C</answer>
+        <answer>D</answer>
+        <A>提出了平均地权、耕者有其田的重要原则</A>
+        <B>建立了中国近代史上第一个资产阶级政党</B>
+        <C>制定比较完整的资产阶级民主革命纲领</C>
+        <D>结束了封建君主专制制度，建立了资产阶级共和国</D>
+    </question>
+</questions>
