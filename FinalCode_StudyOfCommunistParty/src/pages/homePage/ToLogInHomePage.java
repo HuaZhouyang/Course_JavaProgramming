@@ -5,11 +5,11 @@ import beans.user.UserManager;
 import pages.Page;
 
 /**
- * “未登录首页”的页面
+ * “未登录界面”的页面
  */
 public class ToLogInHomePage extends Page implements Login {
     public ToLogInHomePage() {
-        pages.put(PageType.toLogInHomePage, this);
+        pages.put(getClass(), this);
     }
 
     /**
@@ -46,13 +46,7 @@ public class ToLogInHomePage extends Page implements Login {
             }
         }
         // 返回登录后界面
-        if (pages.containsKey(PageType.loggedInHomePage)) {
-            return pages.get(PageType.loggedInHomePage);
-        } else {
-            Page newPage = new LoggedInHomePage();
-            pages.put(PageType.loggedInHomePage, newPage);
-            return newPage;
-        }
+        return nextPage(LoggedInHomePage.class);
     }
 
     /**
@@ -60,7 +54,7 @@ public class ToLogInHomePage extends Page implements Login {
      */
     @Override
     protected void showUI() {
-        System.out.println("******************************");
+        System.out.println("**********未登录界面************");
         System.out.println("尊敬的用户，您尚未登录！");
         System.out.println("选项：（0.退出程序）");
         System.out.println("\t1.用户登录\t2.注册账户并登录");
@@ -78,7 +72,6 @@ public class ToLogInHomePage extends Page implements Login {
 
     /**
      * 登录功能，登录成功返回user值，否则返回null
-     *
      * @return user值
      */
     public User signIn() {
@@ -87,7 +80,7 @@ public class ToLogInHomePage extends Page implements Login {
             String username = getInput("用户名");
             String password = getInput("密码");
             // 获取失败，返回null；否则返回对应User对象
-            if (UserManager.getUser(username, password) != null) { // 检验是否正确
+            if ((user = UserManager.getUser(username, password)) != null) { // 检验是否正确
                 System.out.println("----------登录成功，欢迎使用！----------");
                 if (getInput("下次是否自动登录", "1.是", "2.否").equals("1")) {
                     UserManager.setDefaultUser(username);

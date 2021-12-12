@@ -2,6 +2,8 @@ package pages.funcPage.msgPage;
 
 import beans.user.UserManager;
 import pages.Page;
+import pages.homePage.LoggedInHomePage;
+import pages.homePage.ToLogInHomePage;
 
 /**
  * “我的信息”页面
@@ -17,28 +19,21 @@ public class MessagePage extends Page {
                 case "0": // 0.退出程序
                     System.exit(0);
                 case "1": // 1.返回首页:返回已登录首页
-                    return pages.get(PageType.loggedInHomePage);
+                    return nextPage(LoggedInHomePage.class);
                 case "2": // 2.答题历史:进入（返回）答题历史页面
-                    PageType resPage = PageType.historyPage;
-                    if (pages.containsKey(resPage)) {
-                        return pages.get(resPage);
-                    } else {
-                        Page newPage = new HistoryPage();
-                        pages.put(resPage, newPage);
-                        return newPage;
-                    }
-                case "3": // 3.退出登录:返回未登录首页
-                    waitSomeTime("退出", 1000, "首页");
+                    return nextPage(HistoryPage.class);
+                case "3": // 3.退出登录:返回未登录界面
+                    waitOneSecond("退出成功！", "未登录界面");
                     UserManager.removeDefaultUser();
-                    return pages.get(PageType.toLogInHomePage);
-                case "4": // 4.注销账户:删除账户,并返回未登录首页
+                    return nextPage(ToLogInHomePage.class);
+                case "4": // 4.注销账户:删除账户,并返回未登录界面
                     System.out.println("注销账户后，您的账户及其数据将被永久删除。");
                     System.out.println("您确定要注销吗？\t1.是\t2.否");
                     if (getInput().equals("1")) {
                         UserManager.deleteUser(user.getUsername());
-                        waitSomeTime("注销", 1000, "首页");
+                        waitOneSecond("注销成功！", "未登录界面");
                         UserManager.removeDefaultUser();
-                        return pages.get(PageType.toLogInHomePage);
+                        return nextPage(ToLogInHomePage.class);
                     }
                     break;
                 default: // 非法输入

@@ -1,7 +1,13 @@
 package pages.funcPage.questionPage;
 
-import beans.user.UserManager;
+import beans.question.Question;
+import beans.question.QuestionManager;
 import pages.Page;
+import pages.homePage.LoggedInHomePage;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * “答题”界面
@@ -12,35 +18,39 @@ public class QuestionPage extends Page {
     public Page execute() {
         showUI();
         // 用户选择选项
-        while (true) { // 不断循环直到输入合法
+        List<? extends Question> allQuestions = null;
+        boolean flag = true;
+        while (flag) { // 不断循环直到输入合法
             switch (getInput()) {
                 case "0": // 0.退出程序
                     System.exit(0);
                 case "1": // 1.单选题
-                    return nextPage(PageType.singleChoicePage);
+                    allQuestions = new ArrayList<>(QuestionManager.getAllSingleChoiceQuestionsMapper().values());
+                    flag = false;
+                    break;
                 case "2": // 2.多选题
-                    return nextPage(PageType.multipleChoicePage);
+                    allQuestions = new ArrayList<>(QuestionManager.getAllMultipleChoiceQuestionsMapper().values());
+                    flag = false;
+                    break;
                 case "3": // 3.判断题
+                    allQuestions = new ArrayList<>(QuestionManager.getAllTrueOrFalseQuestionsMapper().values());
+                    flag = false;
+                    break;
                 case "4": // 4.填空题
-                    System.out.println("注销账户后，您的账户及其数据将被永久删除。");
-                    System.out.println("您确定要注销吗？\t1.是\t2.否");
-                    if (getInput().equals("1")) {
-                        UserManager.deleteUser(user.getUsername());
-                        waitSomeTime("注销", 1000, "首页");
-                        UserManager.removeDefaultUser();
-                        return pages.get(PageType.toLogInHomePage);
-                    }
+                    allQuestions = new ArrayList<>(QuestionManager.getAllFillInBlanksQuestionsMapper().values());
+                    flag = false;
                     break;
                 case "5": // 5.随机答题
-
+                    allQuestions = new ArrayList<>(QuestionManager.getAllQuestions());
+                    flag = false;
+                    break;
                 case "6": // 6.返回首页
-                    waitSomeTime("退出", 1000, "首页");
-                    UserManager.removeDefaultUser();
-                    return pages.get(PageType.toLogInHomePage);
+                    return nextPage(LoggedInHomePage.class);
                 default: // 非法输入
                     System.out.println("*****非法的输入！请重新输入！*****");
             }
         }
+        return toAnsweringPage(allQuestions);
     }
 
     @Override
@@ -48,9 +58,28 @@ public class QuestionPage extends Page {
         System.out.println("******************************");
         System.out.println("尊敬的" + user.getName() + "，欢迎您进行党史答题！");
         System.out.println("选项：（0.退出程序）");
-        System.out.println("\t1.单选题\t2.多选题");
-        System.out.println("\t3.判断题\t4.填空题");
+        System.out.println("\t1.单选题\t\t2.多选题");
+        System.out.println("\t3.判断题\t\t4.填空题");
         System.out.println("\t5.随机答题\t6.返回首页");
         System.out.println("******************************");
     }
+
+
+    private Page toAnsweringPage(List<? extends Question> arg) {
+        Page page = null;
+        try {
+            if (pages.containsKey(AnsweringPage.class)) {
+                page = pages.get(AnsweringPage.class);
+                Method setInitArgs = AnsweringPage.class.getMethod("setAllQuestions", arg.getClass());
+                setInitArgs.invoke(page, arg);
+            } else {
+                page = AnsweringPage.class.getConstructor(List.class).newInstance(arg);
+                pages.put(AnsweringPage.class, page);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return page;
+    }
+
 }

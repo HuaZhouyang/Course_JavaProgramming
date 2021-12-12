@@ -1,13 +1,12 @@
 package beans.question;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
-public class Question {
+public abstract class Question {
     protected String id, description;
-    protected Set<String> answer = new TreeSet<>();
+    protected List<String> answer = new LinkedList<>();
 
     protected Question() {
     }
@@ -31,6 +30,9 @@ public class Question {
         this.description = description;
     }
 
+    /**
+     * @return 所有答案组成的数组
+     */
     public String[] getAnswer() {
         return answer.toArray(new String[0]);
     }
@@ -41,17 +43,20 @@ public class Question {
 
     /**
      * 检查输入的答案是否正确
-     * @param answer 答案
+     * @param AnswersToBeChecked 待检验答案
      * @return 代表答案是否正确的布尔值
      */
-    public boolean checkAnswer(String... answer) {
-        return Arrays.equals(this.getAnswer(), answer);
+    public boolean checkAnswer(String AnswersToBeChecked) {
+        return getAnswer()[0].equals(AnswersToBeChecked.toUpperCase());
     }
 
     public void printQuestion(int serialNum) {
         System.out.println(serialNum + "." + getDescription());
     }
-    public Question encapsulateByXmlElement() {
 
+    public void printAnswer() {
+        System.out.println("----------答案：" + Arrays.toString(getAnswer()) + "----------");
     }
+
+    public abstract String QuestionType();
 }

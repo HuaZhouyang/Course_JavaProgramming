@@ -1,0 +1,32 @@
+<?xml version='1.0' ?>
+<questions>
+    <question id='1'>
+        <description>
+        </description>
+        <answer>B</answer>
+    </question>
+
+    <question id='2'>
+        <description>
+        </description>
+        <answer>A</answer>
+    </question>
+
+    <question id='3'>
+        <description>
+        </description>
+        <answer>A</answer>
+    </question>
+
+    <question id='4'>
+        <description>
+        </description>
+        <answer>A</answer>
+    </question>
+
+    <question id='5'>
+        <description>
+        </description>
+        <answer></answer>
+    </question>
+</questions>

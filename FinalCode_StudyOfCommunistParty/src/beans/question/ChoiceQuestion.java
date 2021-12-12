@@ -1,6 +1,6 @@
 package beans.question;
 
-public class ChoiceQuestion extends Question{
+public abstract class ChoiceQuestion extends Question{
     private String A, B, C, D;
 
     public ChoiceQuestion() {
@@ -44,9 +44,9 @@ public class ChoiceQuestion extends Question{
     @Override
     public void printQuestion(int serialNum) {
         super.printQuestion(serialNum);
-        System.out.println("\t" + getA());
-        System.out.println("\t" + getB());
-        System.out.println("\t" + getC());
-        System.out.println("\t" + getD());
+        System.out.println("\tA." + getA());
+        System.out.println("\tB." + getB());
+        System.out.println("\tC." + getC());
+        System.out.println("\tD." + getD());
     }
 }

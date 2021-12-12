@@ -14,42 +14,17 @@ public class LoggedInHomePage extends Page {
     @Override
     public Page execute() {
         showUI();
-        PageType resPage;
         // 用户选择选项
         while (true) { // 不断循环直到输入合法
             switch (getInput()) {
                 case "0": // 0.退出程序
                     System.exit(0);
                 case "1": // 1.学习
-                    // 返回用户选择的功能界面
-                    resPage = PageType.studyPage;
-                    if (pages.containsKey(resPage)) {
-                        return pages.get(resPage);
-                    } else {
-                        Page newPage = new StudyPage();
-                        pages.put(resPage, newPage);
-                        return newPage;
-                    }
+                    return nextPage(StudyPage.class);
                 case "2": // 2.答题
-                    // 返回用户选择的功能界面
-                    resPage = PageType.questionPage;
-                    if (pages.containsKey(resPage)) {
-                        return pages.get(resPage);
-                    } else {
-                        Page newPage = new QuestionPage();
-                        pages.put(resPage, newPage);
-                        return newPage;
-                    }
+                    return nextPage(QuestionPage.class);
                 case "3": // 3.我的信息
-                    // 返回用户选择的功能界面
-                    resPage = PageType.messagePage;
-                    if (pages.containsKey(resPage)) {
-                        return pages.get(resPage);
-                    } else {
-                        Page newPage = new MessagePage();
-                        pages.put(resPage, newPage);
-                        return newPage;
-                    }
+                    return nextPage(MessagePage.class);
                 default: // 非法输入
                     System.out.println("*****非法的输入！请重新输入！*****");
             }
@@ -59,7 +34,7 @@ public class LoggedInHomePage extends Page {
     /* 显示登录成功后的首页UI */
     @Override
     protected void showUI() {
-        System.out.println("******************************");
+        System.out.println("*************首页**************");
         System.out.println("尊敬的" + user.getName() + "，您好！");
         System.out.println("选项：（0.退出程序）");
         System.out.println("\t1.学习\t2.答题");
