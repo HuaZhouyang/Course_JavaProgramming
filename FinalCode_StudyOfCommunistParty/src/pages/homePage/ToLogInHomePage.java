@@ -41,12 +41,11 @@ public class ToLogInHomePage extends Page implements Login {
                         break;
                     default: // 非法输入
                         System.out.println("*****非法的输入！请重新输入！*****");
-                        break;
                 }
             }
         }
         // 返回登录后界面
-        return nextPage(LoggedInHomePage.class);
+        return getPage(LoggedInHomePage.class);
     }
 
     /**
@@ -54,7 +53,7 @@ public class ToLogInHomePage extends Page implements Login {
      */
     @Override
     protected void showUI() {
-        System.out.println("**********未登录界面************");
+        System.out.println("\r\n**********未登录界面************");
         System.out.println("尊敬的用户，您尚未登录！");
         System.out.println("选项：（0.退出程序）");
         System.out.println("\t1.用户登录\t2.注册账户并登录");
@@ -75,7 +74,7 @@ public class ToLogInHomePage extends Page implements Login {
      * @return user值
      */
     public User signIn() {
-        System.out.println("\n----------登录中----------");
+        System.out.println("\r\n----------登录中----------");
         while (true) { // 持续登录直到成功
             String username = getInput("用户名");
             String password = getInput("密码");
@@ -105,7 +104,7 @@ public class ToLogInHomePage extends Page implements Login {
      */
     @Override
     public User registerNewAccount() {
-        System.out.println("\n----------注册中----------");
+        System.out.println("\r\n----------注册中----------");
         String username = getInput("用户名");
         while (UserManager.containsUser(username)) { // 循环输入直到用户名不重复
             showErrorMessage("用户名重复");

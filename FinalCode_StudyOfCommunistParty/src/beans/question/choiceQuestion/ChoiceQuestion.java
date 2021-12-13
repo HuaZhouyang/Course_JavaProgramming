@@ -1,12 +1,14 @@
-package beans.question;
+package beans.question.choiceQuestion;
 
-public abstract class ChoiceQuestion extends Question{
+import beans.question.Question;
+
+public abstract class ChoiceQuestion extends Question {
     private String A, B, C, D;
 
     public ChoiceQuestion() {
     }
-    public ChoiceQuestion(String id, String description, String a, String b, String c, String d, String... answer) {
-        super(id, description, answer);
+    public ChoiceQuestion(int setNum, String id, String description, String a, String b, String c, String d, String... answer) {
+        super(setNum, id, description, answer);
         A = a;
         B = b;
         C = c;

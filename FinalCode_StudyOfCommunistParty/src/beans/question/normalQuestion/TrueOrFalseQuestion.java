@@ -1,9 +1,9 @@
-package beans.question;
+package beans.question.normalQuestion;
 
 /**
  * 判断题类
  */
-public class TrueOrFalseQuestion extends Question{
+public class TrueOrFalseQuestion extends NormalQuestion {
 
     @Override
     public String QuestionType() {

@@ -1,4 +1,4 @@
-package beans.question;
+package beans.question.choiceQuestion;
 
 /**
  * 单选题类

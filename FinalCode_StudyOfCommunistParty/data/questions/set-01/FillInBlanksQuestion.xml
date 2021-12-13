@@ -2,31 +2,36 @@
 <questions>
     <question id='1'>
         <description>
+            从__________年开始，中国逐渐丧失了独立地位，成为半殖民地半封建的国家。
         </description>
-        <answer>B</answer>
+        <answer>1840</answer>
     </question>
 
     <question id='2'>
         <description>
+            为什么中华民族曾经在历史上创造了光辉灿烂的文化，而到近代却大大落后，沦落到悲惨的境地?毛泽东说:“其原因，一是社会制度腐败，二是__________落后。”
         </description>
-        <answer>A</answer>
+        <answer>经济技术</answer>
     </question>
 
     <question id='3'>
         <description>
+            近代中国社会的性质是__________社会。
         </description>
-        <answer>A</answer>
+        <answer>半殖民地半封建</answer>
     </question>
 
     <question id='4'>
         <description>
+            1894—1895年中日甲午战争中清政府的惨败，宣告了__________运动的破产。
         </description>
-        <answer>A</answer>
+        <answer>洋务</answer>
     </question>
 
     <question id='5'>
         <description>
+            半殖民地半封建中国社会的主要矛盾是__________的矛盾。
         </description>
-        <answer></answer>
+        <answer>帝国主义与中华民族</answer>
     </question>
 </questions>

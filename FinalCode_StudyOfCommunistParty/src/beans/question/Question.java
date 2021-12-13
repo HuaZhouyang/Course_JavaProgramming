@@ -1,19 +1,26 @@
 package beans.question;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public abstract class Question {
+    protected int setNum;
     protected String id, description;
     protected List<String> answer = new LinkedList<>();
 
     protected Question() {
     }
-    public Question(String id, String description, String... answer) {
+    public Question(int setNum, String id, String description, String... answer) {
+        this.setNum = setNum;
         this.id = id;
         this.description = description;
         this.answer.addAll(List.of(answer));
+    }
+
+    public int getSetNum() {
+        return setNum;
+    }
+    public void setSetNum(int setNum) {
+        this.setNum = setNum;
     }
 
     public String getId() {
@@ -33,10 +40,13 @@ public abstract class Question {
     /**
      * @return 所有答案组成的数组
      */
-    public String[] getAnswer() {
+    public String[] getAnswers() {
         return answer.toArray(new String[0]);
     }
-    public void setAnswer(String... answer) {
+    public Set<String> getAnswerSet() {
+        return new TreeSet<>(answer);
+    }
+    public void setAnswers(String... answer) {
         this.answer.clear();
         this.answer.addAll(List.of(answer));
     }
@@ -47,7 +57,7 @@ public abstract class Question {
      * @return 代表答案是否正确的布尔值
      */
     public boolean checkAnswer(String AnswersToBeChecked) {
-        return getAnswer()[0].equals(AnswersToBeChecked.toUpperCase());
+        return getAnswers()[0].equalsIgnoreCase(AnswersToBeChecked);
     }
 
     public void printQuestion(int serialNum) {
@@ -55,7 +65,7 @@ public abstract class Question {
     }
 
     public void printAnswer() {
-        System.out.println("----------答案：" + Arrays.toString(getAnswer()) + "----------");
+        System.out.println("----------答案：" + Arrays.toString(getAnswers()) + "----------");
     }
 
     public abstract String QuestionType();

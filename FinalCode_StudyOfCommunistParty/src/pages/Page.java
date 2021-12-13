@@ -10,6 +10,7 @@ import java.util.Scanner;
  * 页面抽象类
  */
 public abstract class Page {
+    public static Page lastPage;
     protected static final Map<Class<? extends Page>, Page> pages = new HashMap<>();
     private static final Scanner sc = new Scanner(System.in);
 
@@ -54,7 +55,7 @@ public abstract class Page {
         }
     }
 
-    protected Page nextPage(Class<? extends Page> pageClass) {
+    protected Page getPage(Class<? extends Page> pageClass) {
         if (pages.containsKey(pageClass)) {
             return pages.get(pageClass);
         } else {
