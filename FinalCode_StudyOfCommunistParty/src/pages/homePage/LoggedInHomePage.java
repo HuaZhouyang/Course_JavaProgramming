@@ -37,7 +37,7 @@ public class LoggedInHomePage extends Page {
         System.out.println("\r\n*************首页**************");
         System.out.println("尊敬的" + user.getName() + "，您好！");
         System.out.println("选项：（0.退出程序）");
-        System.out.println("\t1.学习（ToBeDone）\t2.答题");
+        System.out.println("\t1.学习（未完成）\t2.答题");
         System.out.println("\t3.我的信息");
         System.out.println("******************************");
     }

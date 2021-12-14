@@ -37,7 +37,7 @@ public class AnsweringPage extends Page {
             /* 用户输入选项或答案 */
             String answer;
             int isCorrect = 0; // 1为回答正确，0为回答错误，-1为跳过此题
-            answer = getInput("答案", "0.退出程序", "1.显示答案", "2.返回上一页", "3.返回首页");
+            answer = getInput("答案", "0.退出程序", "1.显示答案", "2.返回上个页面", "3.返回首页");
             // 处理输入
             if (crrQuestion.checkAnswer(answer)) {
                 isCorrect = 1;
@@ -57,11 +57,11 @@ public class AnsweringPage extends Page {
                 }
             }
             // 处理回答错误情况
-            boolean hasFalse = false;
+            boolean isFalse = false;
             while (isCorrect == 0) {
-                hasFalse = true;
+                isFalse = true;
                 System.out.println("---------- ╳回答错误！请重新答题！----------");
-                answer = getInput("答案", "0.退出程序", "1.显示答案", "2.返回上一页", "3.返回首页");
+                answer = getInput("答案", "0.退出程序", "1.显示答案", "2.返回上个页面", "3.返回首页");
                 // 处理输入
                 if (crrQuestion.checkAnswer(answer)) {
                     isCorrect = 1;
@@ -84,7 +84,7 @@ public class AnsweringPage extends Page {
             if (isCorrect == 1) System.out.println("---------- √恭喜你！回答正确！----------");
 
             /* 记录答题历史 */
-            ((HistoryPage) getPage(HistoryPage.class)).recordQuestionHistory(crrQuestion, hasFalse);
+            ((HistoryPage) getPage(HistoryPage.class)).recordQuestionHistory(crrQuestion, isFalse);
 
             /* 该题结束，让用户选择下一步选项 */
             showUI();
@@ -97,7 +97,7 @@ public class AnsweringPage extends Page {
                     case "1": // 1.继续答题
                         flag = false;
                         break;
-                    case "2": // 2.返回上一页
+                    case "2": // 2.返回上个页面
                         return Page.lastPage;
                     case "3": // 3.返回首页
                         return getPage(LoggedInHomePage.class);
@@ -114,7 +114,7 @@ public class AnsweringPage extends Page {
     @Override
     protected void showUI() {
         System.out.println("选项：（0.退出程序）");
-        System.out.println("\t1.继续答题\t2.返回上一页");
+        System.out.println("\t1.继续答题\t2.返回上个页面");
         System.out.println("\t3.返回首页");
     }
 

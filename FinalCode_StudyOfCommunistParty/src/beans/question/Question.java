@@ -3,7 +3,7 @@ package beans.question;
 import java.util.*;
 
 public abstract class Question {
-    protected int setNum;
+    int setNum;
     protected String id, description;
     protected List<String> answer = new LinkedList<>();
 

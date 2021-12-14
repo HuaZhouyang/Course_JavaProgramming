@@ -2,6 +2,10 @@ package pages.funcPage.questionPage;
 
 import beans.question.Question;
 import beans.question.QuestionManager;
+import beans.question.choiceQuestion.MultipleChoiceQuestion;
+import beans.question.choiceQuestion.SingleChoiceQuestion;
+import beans.question.normalQuestion.FillInBlanksQuestion;
+import beans.question.normalQuestion.TrueOrFalseQuestion;
 import pages.Page;
 import pages.homePage.LoggedInHomePage;
 
@@ -25,19 +29,19 @@ public class QuestionPage extends Page {
                 case "0": // 0.退出程序
                     System.exit(0);
                 case "1": // 1.单选题
-                    allQuestions = new ArrayList<>(QuestionManager.getAllSingleChoiceQuestionsMapper(inputSetNum()).values());
+                    allQuestions = new ArrayList<>(QuestionManager.getQuestionsList(inputSetNum(), SingleChoiceQuestion.class));
                     flag = false;
                     break;
                 case "2": // 2.多选题
-                    allQuestions = new ArrayList<>(QuestionManager.getAllMultipleChoiceQuestionsMapper(inputSetNum()).values());
+                    allQuestions = new ArrayList<>(QuestionManager.getQuestionsList(inputSetNum(), MultipleChoiceQuestion.class));
                     flag = false;
                     break;
                 case "3": // 3.判断题
-                    allQuestions = new ArrayList<>(QuestionManager.getAllTrueOrFalseQuestionsMapper(inputSetNum()).values());
+                    allQuestions = new ArrayList<>(QuestionManager.getQuestionsList(inputSetNum(), TrueOrFalseQuestion.class));
                     flag = false;
                     break;
                 case "4": // 4.填空题
-                    allQuestions = new ArrayList<>(QuestionManager.getAllFillInBlanksQuestionsMapper(inputSetNum()).values());
+                    allQuestions = new ArrayList<>(QuestionManager.getQuestionsList(inputSetNum(), FillInBlanksQuestion.class));
                     flag = false;
                     break;
                 case "5": // 5.随机答题
@@ -52,12 +56,19 @@ public class QuestionPage extends Page {
         }
         return toAnsweringPage(allQuestions);
     }
+
+    /**
+     * 让用户输入，要作答的题集编号
+     * @return 要作答的题集编号
+     */
     private int inputSetNum() {
         while (true) { // 不断循环直到输入合法
             try {
-                int setNum = Integer.parseInt(getInput("您要作答第几套题"));
-                if (QuestionManager.hasQuestionSet(setNum)) {
+                int setNum = Integer.parseInt(getInput("您要作答第几套题", "1 <= 题集编号 <= " + QuestionManager.getTotalQuestionSetNum()));
+                if (QuestionManager.hasSuchQuestionSet(setNum)) {
                     return setNum;
+                } else {
+                    System.out.println("*****没有该题集！请重新输入！*****");
                 }
             } catch (NumberFormatException e) { // 非法输入
                 System.out.println("*****非法的输入！请重新输入！*****");
@@ -82,7 +93,7 @@ public class QuestionPage extends Page {
         try {
             if (pages.containsKey(AnsweringPage.class)) {
                 page = pages.get(AnsweringPage.class);
-                Method setInitArgs = AnsweringPage.class.getMethod("setAllQuestions", arg.getClass());
+                Method setInitArgs = AnsweringPage.class.getMethod("setAllQuestions", List.class);
                 setInitArgs.invoke(page, arg);
             } else {
                 page = AnsweringPage.class.getConstructor(List.class).newInstance(arg);
