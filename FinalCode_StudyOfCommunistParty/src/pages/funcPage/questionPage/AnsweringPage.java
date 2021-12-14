@@ -30,7 +30,7 @@ public class AnsweringPage extends Page {
         int crrSerialNum = 1; // 题目序号
         for (Question crrQuestion : allQuestions) {
             /* 展示题目 */
-            System.out.println("************" + crrQuestion.QuestionType() + "*************");
+            System.out.println("\r\n************" + crrQuestion.QuestionType() + "*************");
             crrQuestion.printQuestion(crrSerialNum++);
             System.out.println("******************************");
 

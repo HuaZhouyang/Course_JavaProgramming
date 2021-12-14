@@ -8,6 +8,7 @@ import pages.homePage.LoggedInHomePage;
 
 import java.io.*;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,8 +18,7 @@ import java.util.List;
  */
 public class HistoryPage extends QuestionPage {
     private final String historiesSrc = "FinalCode_StudyOfCommunistParty\\data\\histories";
-    private String mainFilename = historiesSrc + "\\" + user.getUsername() + "0.txt";
-    private String assistFilename = historiesSrc + "\\" + user.getUsername() + "1.txt";
+    private String filename = historiesSrc + "\\" + user.getUsername() + ".txt";
 
 
     /**
@@ -28,27 +28,21 @@ public class HistoryPage extends QuestionPage {
      * @param isFalse              是否回答错误
      */
     public void recordQuestionHistory(Question questionToBeRecorded, boolean isFalse) {
-        File fileToRead = new File(assistFilename);
-        try {
-            fileToRead.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(mainFilename));
-             BufferedReader reader = new BufferedReader(new FileReader(fileToRead))) {
-            writer.write(new Date().getTime() + ":" + questionToBeRecorded.getSetNum() + ":" + questionToBeRecorded.getClass().getName() + ":" + questionToBeRecorded.getId() + ":" + (isFalse ? "错误" : "正确"));
-            writer.newLine();
+        List<String> historyList = new ArrayList<>();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+             BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                writer.write(line);
+            while ((line = reader.readLine()) != null)
+                historyList.add(line);
+            writer.write(new Date().getTime() + ":" + questionToBeRecorded.getSetNum() + ":" + questionToBeRecorded.getClass().getName() + ":" + questionToBeRecorded.getId() + ":" + (isFalse ? "f" : "t"));
+            writer.newLine();
+            for (String s : historyList) {
+                writer.write(s);
                 writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String tmp = mainFilename;
-        mainFilename = assistFilename;
-        assistFilename = tmp;
     }
 
     /**
@@ -65,7 +59,7 @@ public class HistoryPage extends QuestionPage {
         DateFormat formatter = DateFormat.getDateTimeInstance(); // 日期格式化
         int n = 0; // 代表这是第几条历史记录
         int cnt = 0; // 代表这是打印的第几条历史记录
-        File fileToRead = new File(mainFilename);
+        File fileToRead = new File(filename);
         try {
             fileToRead.createNewFile();
         } catch (IOException e) {
@@ -76,7 +70,7 @@ public class HistoryPage extends QuestionPage {
             while ((historyRaw = reader.readLine()) != null) {
                 if (++n >= begin && ++cnt <= limit) { // 找到begin开始的limit条记录
                     // 打印每一条记录
-                    System.out.println("----------记录" + cnt + "/" + limit + "----------");
+                    System.out.println("\r\n----------记录" + cnt + "/" + limit + "----------");
                     String[] info = historyRaw.split(":");
                     // 答题时间
                     createdTime.setTime(Long.parseLong(info[0]));
@@ -87,7 +81,7 @@ public class HistoryPage extends QuestionPage {
                     Class<? extends Question> questionClass = (Class<? extends Question>) Class.forName(questionClassName);
                     String id = info[3];
                     Question question = QuestionManager.getQuestionById(setNum, questionClass, id);
-                    String isFalse = info[4];
+                    String isFalse = "f".equals(info[4]) ? "错误" : "正确";
                     System.out.println("答题信息：第" + setNum + "套-" + question.QuestionType() + "第" + id + "题-回答" + isFalse);
                     // 题目描述
                     System.out.print("题目描述：");
@@ -97,8 +91,8 @@ public class HistoryPage extends QuestionPage {
                 }
             }
             if (cnt == 0)
-                System.out.println("----------无历史记录----------");
-            System.out.println("************第 " + (begin / limit + 1) + " 页************");
+                System.out.println("\r\n----------无历史记录----------");
+            System.out.println("\r\n************第 " + (begin / limit + 1) + " 页************");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -130,7 +124,20 @@ public class HistoryPage extends QuestionPage {
                         }
                         flag = false; // 退出输入循环
                         break;
-                    case "3":  // 3.修改每页条数
+                    case "3":  // 3.跳转到第?页
+                        int pageNum = 0;
+                        while (true) {
+                            try {
+                                pageNum = Integer.parseInt(getInput("跳转的页数"));
+                                break;
+                            } catch (NumberFormatException e) { // 非法输入
+                                System.out.println("*****非法的输入！请重新输入！*****");
+                            }
+                        }
+                        begin = 1 + (pageNum - 1) * limit;
+                        flag = false;
+                        break;
+                    case "4":  // 4.修改每页条数
                         // 用户输入每页条数
                         while (true) { // 不断循环直到输入合法
                             try {
@@ -143,9 +150,9 @@ public class HistoryPage extends QuestionPage {
                         }
                         flag = false; // 退出输入循环
                         break;
-                    case "4":  // 4.作答本页题目
+                    case "5":  // 5.作答本页题目
                         return toAnsweringPage(questionList);
-                    case "5":  // 5.清除历史记录
+                    case "6":  // 6.清除历史记录
                         System.out.println("您确定要清除历史记录吗？\t1:是\t其他键:否");
                         if (getInput().equals("1") && clearHistory()) { // 用户选择”是“，且清除成功
                             waitOneSecond("清除成功！");
@@ -154,9 +161,9 @@ public class HistoryPage extends QuestionPage {
                         }
                         flag = false; // 退出输入循环
                         break;
-                    case "6":  // 6.返回上个页面
+                    case "7":  // 7.返回上个页面
                         return Page.lastPage;
-                    case "7":  // 7.返回首页
+                    case "8":  // 8.返回首页
                         return getPage(LoggedInHomePage.class);
                     default:  // 非法输入
                         System.out.println("*****非法的输入！请重新输入！*****");
@@ -166,15 +173,15 @@ public class HistoryPage extends QuestionPage {
     }
 
     private boolean clearHistory() {
-        return new File(mainFilename).delete() && new File(assistFilename).delete();
+        return new File(filename).delete();
     }
 
     @Override
     protected void showUI() {
         System.out.println("选项：（0.退出程序）");
         System.out.println("\t1.下一页\t\t\t2.上一页");
-        System.out.println("\t3.修改每页条数\t4.作答本页题目");
-        System.out.println("\t5.清除历史记录\t6.返回上个页面");
-        System.out.println("\t7.返回首页");
+        System.out.println("\t3.跳转到第?页\t\t4.修改每页条数");
+        System.out.println("\t5.作答本页题目\t6.清除历史记录");
+        System.out.println("\t7.返回上个页面\t8.返回首页");
     }
 }

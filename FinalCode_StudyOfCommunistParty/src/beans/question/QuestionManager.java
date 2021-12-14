@@ -110,9 +110,16 @@ public class QuestionManager {
         int size = answerElements.size();
         String[] answers = new String[size];
         for (int i = 0; i < size; i++) {
-            answers[i] = answerElements.get(0).text();
+            answers[i] = answerElements.get(i).text();
         }
         question.setAnswers(answers);
+        // 封装解析analysis字段
+        Elements analysisElements = questionElement.getElementsByTag("analysis");
+        if (analysisElements.size() != 0) {
+            question.setAnalysis(analysisElements.get(0).text());
+        } else {
+            question.setAnalysis(null);
+        }
         if (ChoiceQuestion.class.isAssignableFrom(questionClass)) { // 传入的是选择题类
             // 封装A,B,C,D选项字段
             ((ChoiceQuestion) question).setA(questionElement.getElementsByTag("A").get(0).text());

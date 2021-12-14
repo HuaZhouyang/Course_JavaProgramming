@@ -198,4 +198,216 @@
             </question>
         </FillInBlanksQuestion>
     </set>
+
+    <set id='2'>
+        <SingleChoiceQuestion>
+            <question id='1'>
+                <description>
+                    随着马克思主义同中国工人运动的结合日益紧密、建立统一的中国共产党的条件日益成熟。在共产国际代表的促进下，中共一大于______在上海召开。
+                </description>
+                <answer>C</answer>
+                <A>1921年6月20日</A>
+                <B>1921年7月1日</B>
+                <C>1921年7月23日</C>
+                <D>1921年7月30日</D>
+            </question>
+
+            <question id='2'>
+                <description>
+                    中国共产党第十九次全国代表大会，是在全面建成小康社会决胜阶段、中国特色社会主义进入______ 的关键时期召开的一次十分重要的大会。
+                </description>
+                <answer>D</answer>
+                <A>新时期</A>
+                <B>新征程</B>
+                <C>新阶段</C>
+                <D>新时代</D>
+            </question>
+
+            <question id='3'>
+                <description>
+                    十九大的主题是：不忘初心，______ ，高举中国特色社会主义伟大旗帜，决胜全面建成小康社会，夺取新时代中国特色社会主义伟大胜利，为实现中华民族伟大复兴的中国梦不懈奋斗。
+                </description>
+                <answer>B</answer>
+                <A>继续前进</A>
+                <B>牢记使命</B>
+                <C>方得始终</C>
+                <D>砥砺前行</D>
+            </question>
+
+            <question id='4'>
+                <description>
+                    中国共产党人的初心和使命，就是为中国人民______，为中华民族______。这个初心和使命是激励中国共产党人不断前进的根本动力。
+                </description>
+                <answer>C</answer>
+                <A>谋幸福，谋未来</A>
+                <B>谋生活，谋复兴</B>
+                <C>谋幸福，谋复兴</C>
+                <D>谋生活，谋未来</D>
+            </question>
+
+            <question id='5'>
+                <description>
+                    发展是解决我国一切问题的基础和关键，发展必须是科学发展，必须坚定不移贯彻______ 的发展理念。
+                </description>
+                <answer>A</answer>
+                <A>创新、协调、绿色、开放、共享</A>
+                <B>创造、协调、生态、开放、共享</B>
+                <C>创新、统筹、绿色、开放、共享</C>
+                <D>创造、统筹、生态、开放、共享</D>
+            </question>
+        </SingleChoiceQuestion>
+
+        <MultipleChoiceQuestion>
+            <question id='1'>
+                <description>
+                    下列哪些属于党员的权利______。
+                </description>
+                <answer>A</answer>
+                <answer>B</answer>
+                <answer>C</answer>
+                <answer>D</answer>
+                <A>参加党的有关会议，阅读党的有关文件</A>
+                <B>接受党的教育和培训</B>
+                <C>对党的工作提出建议和倡议</C>
+                <D>行使表决权、选举权</D>
+            </question>
+
+            <question id='2'>
+                <description>
+                    党的民主集中制的基本原则是______。
+                </description>
+                <answer>A</answer>
+                <answer>C</answer>
+                <A>全党各个组织和全体党员服从党的全国代表大会和中央委员会</A>
+                <B>向党的上级组织直至中央提出请求、申诉和控告，并要求有关组织给以负责的答复</B>
+                <C>党禁止任何形式的个人崇拜</C>
+                <D>党的最高领导机关是中央委员会</D>
+            </question>
+
+            <question id='3'>
+                <description>
+                    党的全国代表大会的职权是______。
+                </description>
+                <answer>A</answer>
+                <answer>B</answer>
+                <A>听取和审查中央委员会的报告</A>
+                <B>修改党的章程</B>
+                <C>监督国务院、中央军事委员会、最高人民法院和最高人民检察院的工作</C>
+                <D>决定全国总动员或者局部动员</D>
+            </question>
+
+            <question id='4'>
+                <description>
+                    党的基层组织的基本任务是______。
+                </description>
+                <answer>A</answer>
+                <answer>C</answer>
+                <answer>D</answer>
+                <A>宣传和执行党的路线、方针、政策，宣传和执行党中央、上级组织和本组织的决议</A>
+                <B>讨论本地区范围内的重大问题并作出决议</B>
+                <C>对要求入党的积极分子进行教育和培养，做好经常性的发展党员工作</C>
+                <D>密切联系群众，做好群众的思想政治工作</D>
+            </question>
+
+            <question id='5'>
+                <description>
+                    在“ 一国两制”中，两种制度的关系是______。
+                </description>
+                <answer>B</answer>
+                <answer>C</answer>
+                <answer>D</answer>
+                <A>不分主次 、共同发展</A>
+                <B>大陆的社会主义制度是主体</B>
+                <C>长期共存和平共处</C>
+                <D>相互支援</D>
+            </question>
+        </MultipleChoiceQuestion>
+
+        <TrueOrFalseQuestion>
+
+            <question id='1'>
+                <description>
+                    中国共产党在党的三大上第一次明确提出反帝反封建的民主革命纲领。
+                </description>
+                <answer>false</answer>
+                <analysis>
+                    是在二大上
+                </analysis>
+            </question>
+
+            <question id='2'>
+                <description>
+                    第一次国共合作正式形成的标志是中国共产党一大的成功召开。
+                </description>
+                <answer>false</answer>
+                <analysis>
+                    是在国民党一大上
+                </analysis>
+            </question>
+
+            <question id='3'>
+                <description>
+                    1924年黄埔军校创办时的党代表是孙中山。
+                </description>
+                <answer>false</answer>
+                <analysis>
+                    是廖仲恺
+                </analysis>
+            </question>
+
+            <question id='4'>
+                <description>
+                    1927年7月中旬，中共中央决定在江西南昌举行起义，并成立了以周恩来为书记的前敌委员会。
+                </description>
+                <answer>true</answer>
+            </question>
+
+            <question id='5'>
+                <description>
+                    南昌起义后，中共中央是在湖北汉口召开八七会议，确定了土地革命和武装反抗国民党反动派的总方针。
+                </description>
+                <answer>true</answer>
+            </question>
+        </TrueOrFalseQuestion>
+
+        <FillInBlanksQuestion>
+            <question id='1'>
+                <description>
+                    为保证党始终走在时代前列，我们必须坚持以__________和__________为主线。</description>
+                <answer>执政能力建设</answer>
+                <answer>先进性建设</answer>
+            </question>
+
+            <question id='2'>
+                <description>
+                    创先争优活动，以__________、__________为主要内容。
+                </description>
+                <answer>创建先进基层党组织</answer>
+                <answer>争当优秀共产党员</answer>
+            </question>
+
+            <question id='3'>
+                <description>
+                    1921年7月23日，中国共产党第一次全国代表大会在__________召开，最后一天会议转移至__________举行。
+                </description>
+                <answer>上海</answer>
+                <answer>浙江嘉兴南湖</answer>
+            </question>
+
+            <question id='4'>
+                <description>
+                    中国共产党领导下的第一个农村革命根据地是__________。
+                </description>
+                <answer>井冈山农村革命根据地</answer>
+            </question>
+
+            <question id='5'>
+                <description>
+                    党的思想路线是__________，__________，实事求是，在实践中检验真理和发展真理。
+                </description>
+                <answer>一切从实际出发</answer>
+                <answer>理论联系实际</answer>
+            </question>
+        </FillInBlanksQuestion>
+    </set>
 </questions>

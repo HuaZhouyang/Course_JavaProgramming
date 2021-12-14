@@ -4,7 +4,7 @@ import java.util.*;
 
 public abstract class Question {
     int setNum;
-    protected String id, description;
+    protected String id, description, analysis;
     protected List<String> answer = new LinkedList<>();
 
     protected Question() {
@@ -37,6 +37,13 @@ public abstract class Question {
         this.description = description;
     }
 
+    public String getAnalysis() {
+        return analysis;
+    }
+    public void setAnalysis(String analysis) {
+        this.analysis = analysis;
+    }
+
     /**
      * @return 所有答案组成的数组
      */
@@ -66,6 +73,9 @@ public abstract class Question {
 
     public void printAnswer() {
         System.out.println("----------答案：" + Arrays.toString(getAnswers()) + "----------");
+        if (getAnalysis() != null)
+            System.out.println("----------解析：" + getAnalysis() + "----------");
+
     }
 
     public abstract String QuestionType();
